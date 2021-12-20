@@ -1,0 +1,38 @@
+
+
+<div class="example-container mat-elevation-z8 mt-4">
+  <button (click)="onCSVExport()" class="btn btn-success mt-4 ml-4" style="width: 100px;margin-left: 10px;" [disabled]="!selectedData.length">Export</button>
+  
+  <mat-table [dataSource]="dataSource" matSort>
+    <ng-container [matColumnDef]="col.name" *ngFor="let col of tableColumns">
+      <mat-header-cell *matHeaderCellDef mat-sort-header> {{col.title | titlecase}} </mat-header-cell>
+      <mat-cell *matCellDef="let row"
+        [routerLink]="'/employee/'+row.id"
+        class="cursor-pointer"
+       > 
+        <div [ngSwitch]="col.name" class="w-100">  
+            <div *ngSwitchCase="'select'">
+              <input type="checkbox" name="select" id="select" (click)="handleRowSelection($event, row)">
+            </div>  
+            <div *ngSwitchCase="'proficiency'" class="w-100">
+              <app-proficiency [proficiency]="row[col.valueField]"></app-proficiency>
+            </div>  
+            <div *ngSwitchCase="'country'">
+              <app-country [country_code]="row[col.valueField]"></app-country>
+            </div>
+            <div *ngSwitchCase="'skills'">
+              <app-skills [skills]="row[col.valueField]"></app-skills>
+            </div>
+            <div *ngSwitchDefault>{{row[col.valueField]}}</div>  
+        </div>  
+       
+       
+      </mat-cell>
+    </ng-container>
+    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+    <mat-row *matRowDef="let row; columns: displayedColumns;">
+    </mat-row>
+  </mat-table>
+
+  <mat-paginator [hidePageSize]="true"></mat-paginator>
+</div>

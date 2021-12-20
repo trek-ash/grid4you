@@ -1,0 +1,24 @@
+<div class="container mt-5">
+    <div *ngIf="employeeDetails; else noEmployee">
+        <button class="btn btn-sm btn-info" [routerLink]="'/employees'">Back</button>
+        <div class="card bg-white my-5 d-table mx-auto w-50">
+            <div class="card-header">
+                <div class="float-end">{{employeeDetails.mobile}} - {{employeeDetails.address}}, {{employeeDetails.country}}</div>
+                <h4>
+                    {{employeeDetails.name}} 
+
+                </h4>
+            </div>
+            <div class="card-body">
+                <h5 class="card-title">Skills: {{employeeDetails.skills}}</h5>
+                <h5 class="float-right">Proficiency: {{employeeDetails.proficiency}}</h5>
+                <!-- <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p> -->
+            </div>
+        </div>
+    
+    </div>
+    <ng-template #noEmployee>
+        No Such Employee! 
+        <button [routerLink]="'/employees'">See Employees List</button>
+    </ng-template>
+</div>
